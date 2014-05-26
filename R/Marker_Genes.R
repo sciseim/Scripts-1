@@ -1,16 +1,27 @@
-library("limma")
-recRPKM.singles <- read.table("010914_recRPKM_NO_MT_Embryonic_Singles.txt")
-NORM.recRPKM.singles = normalizeBetweenArrays(as.matrix(recRPKM.singles[,-1]),method="quantile");
-geneList <- read.table("~/../Dropbox/Single-cell/Genexp_25Nov2013/brainSeq.singleCell.130925_SN7001318_0091_BC2NALACXX.wholeGene.geneComposite.gene.RPKM.txt", 
-                       header = T) [,1]
-singles <- NORM.recRPKM.singles
-rownames(singles) <- geneList[as.numeric(rownames(singles))]
-mar.genes <- read.csv("012914_Marker_Gene_List.csv", header = T)
-Mar.genes <- paste(mar.genes[,1], collapse = "|")
-Mar.genes <- grep(Mar.genes, geneList)
-Marker.Genes <- NORM.recRPKM.singles[which(rownames(NORM.recRPKM.singles) %in% Mar.genes),]
+##----load embryonic gene expression data
+load(file="/Users/Zhen/Dropbox/Single-cell/Figures/21May2014 updates for 3d PCA/pcaSave.embryonic.RData")
+emb <-  recGenexp
 
-for (i in 2:ncol(mar.genes)){
+##----load neonatal gene expression data
+load(file="/Users/Zhen/Dropbox/Single-cell/Figures/21May2014 updates for 3d PCA/pcaSave.postnatal.RData")
+neo <-  recGenexp
+
+##----clean up
+rm(pcaSave, recGenexp, clusterList)
+
+
+##----Load marker gene list and gene list
+Marker <- read.csv("/Users/Zhen/Data/012914_Marker_Gene_List(2).csv", header = T)
+geneList.emb <- substring(rownames(emb), 20) #Ensembl ID number removed
+geneList.neo <- substring(rownames(neo), 20) #ensembl ID number removed
+
+
+#Mar.genes <- paste(mar.genes[,1], collapse = "|")
+#Mar.genes <- grep(Mar.genes, geneList)
+#Marker.Genes <- NORM.recRPKM.singles[which(rownames(NORM.recRPKM.singles) %in% Mar.genes),]
+
+for (i in 1:ncol(Marker)){
+  genes <- Marker[i]
   Mar.genes <- paste(mar.genes[,i], collapse = "|");
   Mar.genes <- grep(Mar.genes, geneList, ignore.case = T);
   Mar.genes <- NORM.recRPKM.singles[which(rownames(NORM.recRPKM.singles) %in% Mar.genes),];
