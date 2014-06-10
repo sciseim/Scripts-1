@@ -1,9 +1,11 @@
-load("/Users/Zhen/Dropbox/Single-cell/Figures/21May2014 updates for 3d PCA/pcaSave.postnatal.RData")                         ##-----load embryonic gene expression data
+load("/Users/Zhen/Dropbox/Single-cell/Figures/21May2014 updates for 3d PCA/pcaSave.postnatal.RData") 
+#load("/Users/Zhen/Dropbox/Single-cell/Figures/21May2014 updates for 3d PCA/pcaSave.embryonic.RData")
+##-----load embryonic gene expression data
 rm("pcaSave")                                                                        ##-----remove unuserful data
 genes.recRPKM <- recGenexp                                                      
 Marker.Genes <- c()
 
-mar.genes <- read.csv("/Users/Zhen/Data/012914_Marker_Gene_List.csv", header = T)    ##-----read marker genes
+mar.genes <- read.csv("/Users/Zhen/Documents/My Box Files/Manuscript/Marker_Gene_List.csv", header = T)    ##-----read marker genes
 
 row.colorPalette <- topo.colors(ncol(mar.genes))
 row.color <- c()
@@ -48,7 +50,7 @@ heatmap.2(as.matrix(m[,recIndex]), breaks = pairs.breaks,
           trace="none", cexRow=0.7, cexCol = 0.7, 
           labRow = substr(rownames(m), 20, 100),
           labCol = substr(colnames(m), 4, 100),
-          Rowv = NULL, Colv = T , #as.dendrogram(hca), 
+          Rowv = F, Colv = T, #as.dendrogram(hca), 
           dendrogram = "none", na.rm = TRUE, 
           ColSideColors = col.color,
           RowSideColors = row.color,
