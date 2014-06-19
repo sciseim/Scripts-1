@@ -2,8 +2,9 @@
 library("gplots")
 library("RColorBrewer")
 
-load("/Users/Zhen/Dropbox/Single-cell/Figures/21May2014 updates for 3d PCA/pcaSave.embryonic.RData")  ##----This is for embryonic
+#load("/Users/Zhen/Dropbox/Single-cell/Figures/21May2014 updates for 3d PCA/pcaSave.embryonic.RData")  ##----This is for embryonic
 #load("/Users/Zhen/Dropbox/Single-cell/Figures/21May2014 updates for 3d PCA/pcaSave.postnatal.RData")  ##----This is for postnatal
+recGenexp <- read.table("../Dropbox/Single-cell/Figures/10June2014/humanBrain.singleCell.wholeGene.geneComposite.gene.RPKM.txt", header = T)  ##----This is for human
 
 ##-----load embryonic gene expression data
 rm("pcaSave")                                                                        ##-----remove unuserful data
@@ -14,7 +15,9 @@ Marker.Genes <- c()
 
 mar.genes <- read.csv("/Users/Zhen/Documents/My Box Files/Manuscript/Manuscript_Draft/Marker_genes_from_Mihovil.csv", header = T)    ##-----read marker genes
 
-rownames(genes.recRPKM) <- substr(rownames(genes.recRPKM), 20, 100)
+#rownames(genes.recRPKM) <- substr(rownames(genes.recRPKM), 20, 100)  ##----This is for embryonic and postnatal mouse
+rownames(genes.recRPKM) <- substr(rownames(genes.recRPKM), 17, 100)  ##----This is for human
+
 
 row.colorPalette <- topo.colors(ncol(mar.genes))
 row.color <- c()
