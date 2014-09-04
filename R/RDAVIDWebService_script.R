@@ -1,3 +1,8 @@
+Human.module <- read.csv("090214_human_modules.csv", header = T)
+for (i in 1:26){
+  Human.module[, i] <- substr(Human.module[, i], 1, 15) 
+}
+
 ##-----Use RDAVIDWebservice to access DAVID                                   
 
 library("RDAVIDWebService")                                       ##--Load RDAVIDWebService 
@@ -20,15 +25,15 @@ cbind.fill <- function(...){                                      ##--Custom cbi
 KEGG <- c()
 
 ##--Get a list of genes, pay attention to idType
-for (i in 1:40){
-  data <- read.csv(paste("neonatal.module",i, ".csv"), header = T)[, 2]          ##--Read a gene list
+for (i in 2:26){
+  data <- Human.module[,i]                                                       ##--Read a gene list
   addList(user, data, idType = "ENSEMBL_GENE_ID", listType = "Gene",             ##--submit gene list to DAVID
-                    listName = paste("neonatalModule_", i, sep = ""))
+                    listName = paste("Human_Module_", i, sep = ""))
   setAnnotationCategories(user, "KEGG_PATHWAY")                                  ##--check a specific category
   
   ##--combine GO terms from each list
   term <- getFunctionalAnnotationChart(user)
-  if (i == 1){
+  if (i == 2){
     KEGG <- as.matrix(term$Term, ncol = 1)
   }
   else{
@@ -41,22 +46,22 @@ for (i in 1:40){
   }
 }
                   
-write.table(KEGG, "Neonatal_KEGG.txt", sep = "\t")                               ##--Output as .txt file
+write.table(KEGG, "Human_KEGG.txt", sep = "\t")                               ##--Output as .txt file
 
 user <- DAVIDWebService$new(email = "zhen.li.zl242@yale.edu")                    ##--Log on to DAVID with email
 ####-----Get GO_BP terms
 GO_BP <- c()
 
 ##--Get a list of genes, pay attention to idType
-for (i in 1:40){
-  data <- read.csv(paste("neonatal.module",i, ".csv"), header = T)[, 2]          ##--Read a gene list
+for (i in 2:26){
+  data <- Human.module[,i]                                                       ##--Read a gene list
   addList(user, data, idType = "ENSEMBL_GENE_ID", listType = "Gene",             ##--submit gene list to DAVID
-          listName = paste("neonatalModule_", i, sep = ""))
+          listName = paste("Human_Module_", i, sep = ""))
   setAnnotationCategories(user, "GOTERM_BP_FAT")                                  ##--check a specific category
   
   ##--combine GO terms from each list
   term <- getFunctionalAnnotationChart(user)
-  if (i == 1){
+  if (i == 2){
     GO_BP <- as.matrix(term$Term, ncol = 1)
   }
   else{
@@ -69,4 +74,4 @@ for (i in 1:40){
   }
 }
 
-write.table(GO_BP, "Neonatal_GO_BP.txt", sep = "\t")
+write.table(GO_BP, "Human_GO_BP.txt", sep = "\t")
