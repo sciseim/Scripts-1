@@ -135,23 +135,35 @@ rect.hclust(hca, k = 16, border = "red") #k based on clustGap analysis
 
 ##-------make 3D PCA plot with first three PC
 
-#library("scatterplot3d")
-#minXaxis=min(rot[,1])*1.3;
-#maxXaxis=max(rot[,1])*1.3;
-#minYaxis=min(rot[,2])*1.3;
-#maxYaxis=max(rot[,2])*1.3;
-#minZaxis=min(rot[,3])*1.3;
-#maxZaxis=max(rot[,3])*1.3;
+library("scatterplot3d")
+minXaxis=min(rot[,1])*1.3;
+maxXaxis=max(rot[,1])*1.3;
+minYaxis=min(rot[,2])*1.3;
+maxYaxis=max(rot[,2])*1.3;
+minZaxis=min(rot[,3])*1.3;
+maxZaxis=max(rot[,3])*1.3;
 
-#scatterplot3d(rot[,1],rot[,2], rot[,3], type="p",xlim=c(minXaxis,maxXaxis),ylim=c(minYaxis,maxYaxis), zlim=c(minZaxis,maxZaxis), xlab=paste("PC1 ",ratio1,"%",sep=""),ylab=paste("PC2 ",ratio2,"%",sep=""),zlab=paste("PC2 ",ratio3, "%", sep=""), pch=20);
+scatterplot3d(rot[,1],rot[,2], rot[,3], type="p",xlim = c(minXaxis,maxXaxis),ylim = c(minYaxis, maxYaxis), 
+              zlim = c(minZaxis,maxZaxis), xlab = paste("PC1 ",ratio1,"%",sep=""),
+              ylab = paste("PC2 ",ratio2,"%",sep = ""), zlab = paste("PC2 ",ratio3, "%", sep = ""), 
+              pch = 20);
 
 ##--------make interactive 3d plot
 library(rgl)
 plot3d(rot[,1],rot[,2], rot[,3],xlim=c(minXaxis,maxXaxis),ylim=c(minYaxis,maxYaxis),
        zlim=c(minZaxis,maxZaxis), xlab=paste("PC1 ",ratio1,"%",sep=""),
        ylab=paste("PC2 ",ratio2,"%",sep=""),
-       zlab=paste("PC3 ",ratio3, "%", sep=""), col=GFPcol)
+       zlab=paste("PC3 ",ratio3, "%", sep=""))
  text3d(rot[,1],rot[,2], rot[,3], text=recSamplist,cex=0.5)
+
+
+decorate3d(xlab = "PC1",ylab="PC2",zlab="PC3", axes = T, 
+           box = F)
+rgl.bg(fogtype = "linear", sphere=F, 
+       color=c("white","green"), lit=FALSE, 
+       back="lines" )
+rgl.postscript("3D_PCA.pdf", "pdf")
+
 
 ##----------------Find the top i expressed genes and make heatmap
 geneList <- read.table(inFile1, header = T)[,1]

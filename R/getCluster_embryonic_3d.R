@@ -1,5 +1,3 @@
-
-
 ##Usage: Rscript getCluster_embryonic.R
 ##AIM: combine different runs for pca analysis
 ##Date:2013-10-14
