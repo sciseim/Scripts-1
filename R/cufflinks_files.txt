@@ -1,0 +1,5 @@
+./PEC_IL1_IL_6_CAGATC_L007_R1_all/transcripts.gtf
+./PEC_cAMP_ACAGTG_L007_R1_all/transcripts.gtf
+./PEC_CoCl2_GCCAAT_L007_R1_all/transcripts.gtf
+./PEC_LPS_TGACCA_L007_R1_all/transcripts.gtf
+./PEC_CT_CGATGT_L007_R1_all/transcripts.gtf

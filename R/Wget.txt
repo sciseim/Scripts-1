@@ -1,0 +1,4 @@
+syst
+wget -r -A "*_all.fastq" -e robots=off -nd "URL"
+
+wget -r -nd -A "Irma-H*_all.fastq" -e robots=off http://futo.cs.yale.edu:16023/sequencers/haifan_lin/runs/141002_SN832_0185_AC59TWACXX/Data/Intensities/BaseCalls/Unaligned/Project_Irma/
